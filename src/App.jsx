@@ -6,7 +6,7 @@ import Contact from "./components/Contact";
 import Certificates from "./components/Certificates";
 
 function App() {
-  const pad = 2;
+  const pad = 1.5;
 
 
   return (

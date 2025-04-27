@@ -13,6 +13,7 @@ const Experience = () => (
       <Typography color="text.secondary" sx={{ mb: 1 }}>
         Jr. Software Engineer · Oct-2024 - Presente
       </Typography>
+   
       <Divider sx={{ mb: 2 }} />
 
       {/* Descripción */}
