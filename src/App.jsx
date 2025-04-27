@@ -1,6 +1,5 @@
-import { Container, Divider, Box } from "@mui/material";
+import { Container, Divider } from "@mui/material";
 import Header from "./components/Header";
-import Summary from "./components/Summary";
 import Experience from "./components/Experience";
 import Education from "./components/Education";
 import Contact from "./components/Contact";
