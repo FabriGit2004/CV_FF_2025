@@ -1,6 +1,6 @@
 import { Box, Typography, Paper, Chip, Divider } from "@mui/material";
 
-const txt = `Soporte, resolución de problemas técnicos y administrativos.`;
+const txt = `Soporte TI.`;
 const txt2 = `Desarrollo de Software.`;
 
 const style = { backgroundColor: "#f1502f", color: "white" }

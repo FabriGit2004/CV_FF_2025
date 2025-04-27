@@ -3,7 +3,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 const Contact = () => (
-  <Box>
+  <Box sx={{backgroundColor: 'white'}}>
     <Box
       sx={{
         padding: "16px",
