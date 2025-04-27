@@ -10,7 +10,7 @@ function App() {
 
 
   return (
-    <Container maxWidth="md" sx={{ py: 2, "& > *": { mt: pad, mb: pad } }}>
+    <Container maxWidth="md" sx={{ py: 1, "& > *": { mt: pad, mb: pad } }}>
       <Header />
       <Divider />
       <Experience />
