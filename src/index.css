@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* index.css */
+
+
+
+#root {
+  min-height: 100vh; /* Asegura que el contenedor del root tenga la altura completa de la página */
+}
+
+.MuiTypography-h5 {
+  color: black !important;
+  font-weight: lighter !important;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+}
+
+.MuiTypography-h3 {
+  color: gray !important;
+  font-weight: lighter !important;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+}
+

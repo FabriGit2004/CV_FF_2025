@@ -1,10 +1,9 @@
 import { Box, Typography } from '@mui/material';
 
 const Summary = () => (
-  <Box sx={{ my: 4 }}>
-    <Typography variant="h5">Resumen</Typography>
+  <Box sx={{ textAlign: 'center', mt: 2 }}>
     <Typography>
-      Apasionado por la tecnología y el desarrollo de software, con experiencia en React, Python y desarrollo web completo.
+      Apasionado por la musica, el arte y el desarrollo de software.
     </Typography>
   </Box>
 );
