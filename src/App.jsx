@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   Container,
   Button,
-  Box,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -23,7 +22,7 @@ function LanguageSelector({ onSelect }) {
       <DialogTitle sx={{ textAlign: "center" }}>
         Choose your language. <br /> Elige tu idioma.
       </DialogTitle>
-      
+
       <DialogContent>
         <Stack
           direction="row"
@@ -64,17 +63,13 @@ function App() {
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "row", minHeight: "100vh", ml: 16 }}>
-      <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-        <Container maxWidth="md" sx={{ "& > *": { mt: pad, mb: pad } }}>
-          <Header {...content.header} />
-          <Experience {...content.experience} />
-          <Education {...content.education} />
-          <Contact {...content.contact} />
-          <Certificates cardTitle={content.certificates.cardTitle} />
-        </Container>
-      </Box>
-    </Box>
+    <Container maxWidth="md" sx={{ "& > *": { mt: pad, mb: pad } }}>
+      <Header {...content.header} />
+      <Experience {...content.experience} />
+      <Education {...content.education} />
+      <Contact {...content.contact} />
+      <Certificates cardTitle={content.certificates.cardTitle} />
+    </Container>
   );
 }
 
