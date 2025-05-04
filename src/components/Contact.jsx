@@ -2,8 +2,8 @@ import { Box, Typography, Link, IconButton, Divider } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
-const Contact = () => (
-  <Box sx={{backgroundColor: 'white'}}>
+const Contact = ({ cardTitle, email, github }) => (
+  <Box sx={{ backgroundColor: 'white' }}>
     <Box
       sx={{
         padding: "16px",
@@ -13,46 +13,35 @@ const Contact = () => (
         gap: 2,
       }}
     >
-      <Typography
-        variant="h5"
-        sx={{ fontWeight: "bold", color: "#333" }}
-      >
-        Contacto
+      <Typography variant="h5" sx={{ fontWeight: "bold", color: "#333" }}>
+        {cardTitle}
       </Typography>
       <Divider />
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-        <IconButton
-          color="primary"
-          component="a"
-          href="mailto:fatechafabrizio@gmail.com"
-        >
+        <IconButton color="primary" component="a" href={`mailto:${email}`}>
           <EmailIcon />
         </IconButton>
         <Typography>
           <Link
-            href="mailto:fatechafabrizio@gmail.com"
+            href={`mailto:${email}`}
             sx={{ textDecoration: "none", color: "#1976d2" }}
           >
-            fatechafabrizio@gmail.com
+            {email}
           </Link>
         </Typography>
       </Box>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-        <IconButton
-          color="primary"
-          component="a"
-          href="https://github.com/FabriGit2004"
-        >
+        <IconButton color="primary" component="a" href={github}>
           <GitHubIcon />
         </IconButton>
         <Typography>
           <Link
-            href="https://github.com/FabriGit2004"
+            href={github}
             sx={{ textDecoration: "none", color: "#1976d2" }}
           >
-            github.com/FabriGit2004
+            {github.replace("https://", "")}
           </Link>
         </Typography>
       </Box>

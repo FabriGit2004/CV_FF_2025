@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #95c6e7; 
+  background: rgb(91, 99, 121); 
 }
 
 
@@ -29,8 +29,9 @@ code {
 }
 
 .MuiTypography-h3 {
-  color: black !important;
+  color: white   !important;
   font-weight: lighter !important;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
 }
+
 

@@ -1,10 +1,12 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material'
 
-const Header = () => (
-  <Box sx={{ textAlign: 'center'}}>
-    <Typography variant="h3">Fabrizio Fatecha</Typography>
-    <Typography variant="h6" color="text.secondary">Jr. Software Engineer</Typography>
+const Header = ({ name, title }) => (
+  <Box sx={{ textAlign: 'center' }}>
+    <Typography variant="h3">{name}</Typography>
+    <Typography variant="h6" color="text.secondary" sx={{ color: '#e6f3ff' }}>
+      {title}
+    </Typography>
   </Box>
-);
+)
 
-export default Header;
+export default Header

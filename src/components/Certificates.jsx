@@ -4,14 +4,11 @@ import {
   Typography,
   Card,
   CardMedia,
-  CardContent,
   Modal,
   IconButton,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
+  Paper,
+  Divider,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const certificates = [
   { title: "CIBERSEGURIDAD", image: "/certs/ciberseguridad.png" },
@@ -26,9 +23,15 @@ const certificates = [
   { title: "PSEUDOCODIGO", image: "/certs/pseudocodigo.png" },
   { title: "PYTHON", image: "/certs/pythonsnpp.png" },
   { title: "PYTHON AV.", image: "/certs/pythonudemy.png" },
+  { title: "ANTISOBORNO.", image: "/certs/itti_certs/antisoborno.png" },
+  { title: "DEVELOPERS.", image: "/certs/itti_certs/developers.png" },
+  { title: "ETICA.", image: "/certs/itti_certs/etica.png" },
+  { title: "LAVADO.", image: "/certs/itti_certs/lavado.png" },
+  { title: "PRIMEROSAUXILIOS.", image: "/certs/itti_certs/primerosAuxilios.png" },
+  { title: "SEGURIDAD.", image: "/certs/itti_certs/seguridad.png" },
 ];
 
-const Certificates = () => {
+const Certificates = ({cardTitle}) => {
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -44,48 +47,42 @@ const Certificates = () => {
 
   return (
     <Box>
-      <Accordion sx={{  mt: 2,  boxShadow: 3, borderRadius: 2 }}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h5">
-            Certificados
-          </Typography>
-        </AccordionSummary>
+      <Paper sx={{ p: 2, mt: 2,  boxShadow: 3 }}>
+        <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
+          {cardTitle}
+        </Typography>
+        <Divider />
 
-        <AccordionDetails>
-          {/* Contenedor para los certificados */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              gap: 2,
-            }}
-          >
-            {certificates.map((cert, index) => (
-              <Box
-                key={index}
-                sx={{ width: { xs: "100%", sm: "48%", md: "30%" }, m: 1 }}
-              >
-                <Card>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={cert.image}
-                    alt={cert.title}
-                    onClick={() => handleOpen(cert.image)}
-                    sx={{ cursor: "pointer" }}
-                  />
-                  <CardContent>
-                    <Typography variant="h6">{cert.title}</Typography>
-                  </CardContent>
-                </Card>
-              </Box>
-            ))}
-          </Box>
-        </AccordionDetails>
-      </Accordion>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            gap: 2,
+            mt: 2,
+            mb: 2
+          }}
+        >
+          {certificates.map((cert, index) => (
+            <Box
+              key={index}
+              sx={{ width: { xs: "100%", sm: "48%", md: "30%" } }}
+            >
+              <Card>
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={cert.image}
+                  alt={cert.title}
+                  onClick={() => handleOpen(cert.image)}
+                  sx={{ cursor: "pointer" }}
+                />
+              </Card>
+            </Box>
+          ))}
+        </Box>
+      </Paper>
 
-      {/* Modal para la imagen ampliada */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -96,22 +93,30 @@ const Certificates = () => {
         }}
       >
         <Box
-          sx={{ position: "relative", backgroundColor: "white", padding: 2 }}
+          sx={{
+            position: "relative",
+            backgroundColor: "white",
+            padding: 2,
+            borderRadius: 2,
+            boxShadow: 24,
+          }}
         >
           <IconButton
             onClick={handleClose}
             sx={{
               position: "absolute",
-              top: 10,
-              right: 10,
+              top: 8,
+              right: 8,
+              backgroundColor: "#eee",
+              "&:hover": { backgroundColor: "#ccc" },
             }}
           >
-            X
+            ✕
           </IconButton>
           <img
             src={selectedImage}
             alt="Certificado Ampliado"
-            style={{ maxWidth: "100%", maxHeight: "80vh" }}
+            style={{ maxWidth: "90vw", maxHeight: "80vh" }}
           />
         </Box>
       </Modal>
