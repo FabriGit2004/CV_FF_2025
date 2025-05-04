@@ -27,11 +27,14 @@ const certificates = [
   { title: "DEVELOPERS.", image: "/certs/itti_certs/developers.png" },
   { title: "ETICA.", image: "/certs/itti_certs/etica.png" },
   { title: "LAVADO.", image: "/certs/itti_certs/lavado.png" },
-  { title: "PRIMEROSAUXILIOS.", image: "/certs/itti_certs/primerosAuxilios.png" },
+  {
+    title: "PRIMEROSAUXILIOS.",
+    image: "/certs/itti_certs/primerosAuxilios.png",
+  },
   { title: "SEGURIDAD.", image: "/certs/itti_certs/seguridad.png" },
 ];
 
-const Certificates = ({cardTitle}) => {
+const Certificates = ({ cardTitle }) => {
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -47,7 +50,7 @@ const Certificates = ({cardTitle}) => {
 
   return (
     <Box>
-      <Paper sx={{ p: 2, mt: 2,  boxShadow: 3 }}>
+      <Paper sx={{ p: 2, mt: 2, boxShadow: 3 }}>
         <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
           {cardTitle}
         </Typography>
@@ -58,9 +61,9 @@ const Certificates = ({cardTitle}) => {
             display: "flex",
             justifyContent: "center",
             flexWrap: "wrap",
-            gap: 2,
+            gap: 4,
             mt: 2,
-            mb: 2
+            mb: 2,
           }}
         >
           {certificates.map((cert, index) => (
@@ -68,14 +71,25 @@ const Certificates = ({cardTitle}) => {
               key={index}
               sx={{ width: { xs: "100%", sm: "48%", md: "30%" } }}
             >
-              <Card>
+              <Card
+                sx={{
+                  border: "1px solid #e0e0e0",
+                  boxShadow: 3,
+                  borderRadius: 2,
+                  transition: "transform 0.2s",
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                    boxShadow: 6,
+                  },
+                }}
+              >
                 <CardMedia
                   component="img"
-                  height="200"
+                 
                   image={cert.image}
                   alt={cert.title}
                   onClick={() => handleOpen(cert.image)}
-                  sx={{ cursor: "pointer" }}
+                  sx={{ cursor: "pointer",  height: "200", width: "200" }}
                 />
               </Card>
             </Box>
