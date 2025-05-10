@@ -37,7 +37,8 @@ export const contentEs = {
       github: "https://github.com/FabriGit2004",
     },
     certificates: {
-        cardTitle: "Certificados"
+        cardTitle: "Certificados",
+        eng : false
       },
   
 
@@ -82,7 +83,9 @@ export const contentEs = {
       github: "https://github.com/FabriGit2004",
     },
     certificates: {
-        cardTitle: "Certificates"
+        cardTitle: "Certificates",
+        eng : true
+
       },
   
 

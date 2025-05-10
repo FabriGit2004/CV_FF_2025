@@ -4,39 +4,73 @@ import {
   Typography,
   Card,
   CardMedia,
+  CardContent,
   Modal,
   IconButton,
   Paper,
   Divider,
 } from "@mui/material";
 
-const certificates = [
-  { title: "CIBERSEGURIDAD", image: "/certs/ciberseguridad.png" },
+const certificatesSP = [
+  { title: "Ciberseguridad", image: "/certs/ciberseguridad.png" },
   { title: "HTML", image: "/certs/html.png" },
-  { title: "INGLES", image: "/certs/inglesempresarial.png" },
-  { title: "INGLES T.", image: "/certs/inglesTecnico.png" },
-  { title: "INGLES U.", image: "/certs/inglesucp.png" },
-  { title: "MANTENIMIENTO", image: "/certs/mantenimientodepc.png" },
-  { title: "OFIMATICA", image: "/certs/ofimatica.png" },
+  { title: "Inglés Empresarial", image: "/certs/inglesempresarial.png" },
+  { title: "Inglés Técnico", image: "/certs/inglesTecnico.png" },
+  { title: "Inglés UCP", image: "/certs/inglesucp.png" },
+  { title: "Mantenimiento de PC", image: "/certs/mantenimientodepc.png" },
+  { title: "Ofimática", image: "/certs/ofimatica.png" },
   { title: "PL/SQL", image: "/certs/PL.png" },
-  { title: "PORTUGUES", image: "/certs/portugues.png" },
-  { title: "PSEUDOCODIGO", image: "/certs/pseudocodigo.png" },
-  { title: "PYTHON", image: "/certs/pythonsnpp.png" },
-  { title: "PYTHON AV.", image: "/certs/pythonudemy.png" },
-  { title: "ANTISOBORNO.", image: "/certs/itti_certs/antisoborno.png" },
-  { title: "DEVELOPERS.", image: "/certs/itti_certs/developers.png" },
-  { title: "ETICA.", image: "/certs/itti_certs/etica.png" },
-  { title: "LAVADO.", image: "/certs/itti_certs/lavado.png" },
+  { title: "Portugués", image: "/certs/portugues.png" },
+  { title: "Pseudocódigo", image: "/certs/pseudocodigo.png" },
+  { title: "Python SNPP", image: "/certs/pythonsnpp.png" },
+  { title: "Python Avanzado (Udemy)", image: "/certs/pythonudemy.png" },
+  { title: "Antisoborno", image: "/certs/itti_certs/antisoborno.png" },
+  { title: "Developers ITTI", image: "/certs/itti_certs/developers.png" },
+  { title: "Ética Profesional", image: "/certs/itti_certs/etica.png" },
+  { title: "Antilavado de Activos", image: "/certs/itti_certs/lavado.png" },
   {
-    title: "PRIMEROSAUXILIOS.",
+    title: "Primeros Auxilios",
     image: "/certs/itti_certs/primerosAuxilios.png",
   },
-  { title: "SEGURIDAD.", image: "/certs/itti_certs/seguridad.png" },
+  { title: "Seguridad Laboral", image: "/certs/itti_certs/seguridad.png" },
 ];
 
-const Certificates = ({ cardTitle }) => {
+
+const certificatesEN = [
+  { title: "Cybersecurity Essentials", image: "/certs/ciberseguridad.png" },
+  { title: "HTML Foundations", image: "/certs/html.png" },
+  { title: "Business English", image: "/certs/inglesempresarial.png" },
+  { title: "Technical English", image: "/certs/inglesTecnico.png" },
+  { title: "English Language - UCP", image: "/certs/inglesucp.png" },
+  { title: "PC Maintenance & Repair", image: "/certs/mantenimientodepc.png" },
+  { title: "Office Software Skills", image: "/certs/ofimatica.png" },
+  { title: "PL/SQL Programming", image: "/certs/PL.png" },
+  { title: "Portuguese", image: "/certs/portugues.png" },
+  { title: "Pseudocode", image: "/certs/pseudocodigo.png" },
+  { title: "Python Basics – SNPP", image: "/certs/pythonsnpp.png" },
+  { title: "Advanced Python (Udemy)", image: "/certs/pythonudemy.png" },
+  { title: "Anti-Bribery Compliance", image: "/certs/itti_certs/antisoborno.png" },
+  { title: "ITTI Developers", image: "/certs/itti_certs/developers.png" },
+  { title: "Professional Ethics", image: "/certs/itti_certs/etica.png" },
+  { title: "Money Laundering Awareness", image: "/certs/itti_certs/lavado.png" },
+  {
+    title: "First Aid & Emergency Response",
+    image: "/certs/itti_certs/primerosAuxilios.png",
+  },
+  { title: "Workplace Safety & Security", image: "/certs/itti_certs/seguridad.png" },
+];
+
+
+
+
+
+
+
+const Certificates = ({ cardTitle, eng }) => {
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const certificates = eng ? certificatesEN : certificatesSP;
+
 
   const handleOpen = (image) => {
     setSelectedImage(image);
@@ -85,12 +119,29 @@ const Certificates = ({ cardTitle }) => {
               >
                 <CardMedia
                   component="img"
-                 
                   image={cert.image}
                   alt={cert.title}
                   onClick={() => handleOpen(cert.image)}
-                  sx={{ cursor: "pointer",  height: "200", width: "200" }}
+                  sx={{
+                    cursor: "pointer",
+                    height: 200,
+                    width: "100%",
+                    objectFit: "contain",
+                    backgroundColor: "#fafafa",
+                  }}
                 />
+                <CardContent>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      textAlign: "center",
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                  >
+                    {cert.title}
+                  </Typography>
+                </CardContent>
               </Card>
             </Box>
           ))}

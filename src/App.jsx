@@ -68,7 +68,7 @@ function App() {
       <Experience {...content.experience} />
       <Education {...content.education} />
       <Contact {...content.contact} />
-      <Certificates cardTitle={content.certificates.cardTitle} />
+      <Certificates cardTitle={content.certificates.cardTitle} eng={content.certificates.eng}/>
     </Container>
   );
 }
