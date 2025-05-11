@@ -184,116 +184,120 @@ result
         <CircularProgress color="inherit" size={60} />
       </Backdrop>
     );
-  }
-
-  else{
-
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "0vh",
-        p: 2,
-        mb: isIphone ? 10 : 0,
-        
-      }}
-    >
-      <Card
+  } else {
+    return (
+      <Box
         sx={{
-          width: "100%",
-          height: "615px",
-          maxWidth: 800,
-          borderRadius: 3,
-          boxShadow: 6,
-          p: isMobile ? 1 : 2,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "0vh",
+          p: 2,
+          mb: isIphone ? 10 : 0,
         }}
       >
-        <Box
+        <Card
           sx={{
             width: "100%",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            maxWidth: 800,
+            borderRadius: 3,
+            boxShadow: 6,
+            p: isMobile ? 1 : 2,
+            pb: 0,
           }}
         >
-          {/* Flecha a la izquierda */}
-          <ReplyIcon
-            onClick={comebackFx}
+          <Box
             sx={{
-              color: "#1976d2",
-              ml: 1,
-              fontSize: 40,
-              cursor: "pointer",
-            }}
-          />
-
-          {/* Bombilla a la derecha */}
-          <LightbulbIcon
-            onClick={handleOpenDialog}
-            sx={{
-              color: "#fbc02d",
-              mr: 1,
-              fontSize: 40,
-              cursor: "pointer",
-            }}
-          />
-        </Box>
-
-        <CardHeader
-          title="Network Calculators"
-          sx={{
-            textAlign: "center",
-            fontSize: isMobile ? 14 : 18,
-            padding: "0px",
-          }}
-        />
-
-        <CardContent>
-          <Tabs
-            value={tabIndex}
-            onChange={handleTabChange}
-            centered
-            textColor="primary"
-            indicatorColor="primary"
-            sx={{ mb: 2 }}
-          >
-            <Tab label="Subnet" />
-            <Tab label="CIDR" />
-          </Tabs>
-
-          <TextField
-            label={
-              tabIndex === 0
-                ? !isValid
-                  ? "Invalid IP address or subnet"
-                  : "Enter IP/Subnet "
-                : !isValid
-                ? "Invalid CIDR"
-                : "Enter CIDR"
-            }
-            value={input}
-            onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
-            size={isMobile ? "small" : "medium"}
-            error={!isValid} // Si la IP/CIDR no es válida, mostrar error
-            sx={{ mt: 2 }}
-          />
-
-          <SyntaxHighlighter
-            language="python"
-            style={materialDark}
-            customStyle={{
-              height: "200px",
-              marginTop: "20px",
-              fontSize: isMobile ? "0.75rem" : "1rem",
-              overflowX: "auto",
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mb: 2,
+        
             }}
           >
-            {tabIndex === 0
-              ? `
+            {/* Flecha a la izquierda */}
+            <ReplyIcon
+              onClick={comebackFx}
+              sx={{
+                color: "#1976d2",
+                ml: 1,
+                fontSize: 40,
+                cursor: "pointer",
+              }}
+            />
+
+            {/* Bombilla a la derecha */}
+            <LightbulbIcon
+              onClick={handleOpenDialog}
+              sx={{
+                color: "#fbc02d",
+                mr: 1,
+                fontSize: 40,
+                cursor: "pointer",
+              }}
+            />
+          </Box>
+
+          <CardHeader
+            title="Network Calculators"
+            sx={{
+              textAlign: "center",
+              fontSize: isMobile ? 14 : 18,
+              padding: "0px",
+            }}
+          />
+
+          <CardContent
+            sx={{
+              "&.MuiCardContent-root": {
+                pb: 2,
+              },
+            }}
+          >
+            <Tabs
+              value={tabIndex}
+              onChange={handleTabChange}
+              centered
+              textColor="primary"
+              indicatorColor="primary"
+              sx={{ mb: 0.5 }}
+            >
+              <Tab label="Subnet" />
+              <Tab label="CIDR" />
+            </Tabs>
+
+            <TextField
+              label={
+                tabIndex === 0
+                  ? !isValid
+                    ? "Invalid IP address or subnet"
+                    : "Enter IP/Subnet "
+                  : !isValid
+                  ? "Invalid CIDR"
+                  : "Enter CIDR"
+              }
+              value={input}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              size={isMobile ? "small" : "medium"}
+              error={!isValid} // Si la IP/CIDR no es válida, mostrar error
+              sx={{ mt: 2 }}
+            />
+
+            <SyntaxHighlighter
+              language="python"
+              style={materialDark}
+              customStyle={{
+                height: "200px",
+                marginTop: "20px",
+                fontSize: isMobile ? "0.75rem" : "1rem",
+                overflowX: "auto",
+              }}
+            >
+              {tabIndex === 0
+                ? `
 import ipaddress
 
 def subnet_info(ip_with_mask):
@@ -303,7 +307,7 @@ def subnet_info(ip_with_mask):
 result = subnet_info("${input.trim()}")
 result
               `
-              : `
+                : `
 import ipaddress
 
 def cidr_info(cidr):
@@ -318,71 +322,71 @@ def cidr_info(cidr):
 result = cidr_info("${input.trim()}")
 result
               `}
-          </SyntaxHighlighter>
+            </SyntaxHighlighter>
 
-          <Button
-            variant="contained"
-            onClick={runCode}
-            disabled={!pyodide || !isValid} // Deshabilitar el botón si la IP/CIDR es inválido
-            sx={{ mt: 2, width: "100%" }}
-          >
-            Run Code
-          </Button>
-
-          {output && (
-            <Box
-              component="pre"
-              sx={{
-                mt: 2,
-                color: "black",
-                whiteSpace: "pre-wrap",
-                fontSize: isMobile ? "0.8rem" : "1rem",
-              }}
+            <Button
+              variant="contained"
+              onClick={runCode}
+              disabled={!pyodide || !isValid} // Deshabilitar el botón si la IP/CIDR es inválido
+              sx={{ mt: 2, width: "100%", mb:1.5 }}
             >
-              {output}
-            </Box>
-          )}
+              Run Code
+            </Button>
 
-          <>
-            <Dialog
-              open={openDialog}
-              onClose={handleCloseDialog}
-              maxWidth="sm"
-              fullWidth
-            >
-              <DialogTitle>google.com</DialogTitle>
-              <DialogContent>
-                <Typography
-                  onClick={handleCopy}
-                  sx={{
-                    cursor: "pointer",
-                    userSelect: "none",
-                    color: "primary.main",
-                    mt: 1,
-                    wordBreak: "break-word",
-                  }}
-                >
-                  142.250.190.14/24
-                </Typography>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleCloseDialog}>X</Button>
-              </DialogActions>
-            </Dialog>
+            {output && (
+              <Box
+                component="pre"
+                sx={{
+                  m:0,
+                  color: "black",
+                  whiteSpace: "pre-wrap",
+                  fontSize: isMobile ? "0.8rem" : "1rem",
+                }}
+              >
+                {output}
+              </Box>
+            )}
 
-            <Snackbar
-              open={copied}
-              autoHideDuration={2000}
-              onClose={handleCloseSnackbar}
-              message="Copied to clipboard"
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            />
-          </>
-        </CardContent>
-      </Card>
-    </Box>
-  );
-};
+            <>
+              <Dialog
+                open={openDialog}
+                onClose={handleCloseDialog}
+                maxWidth="sm"
+                fullWidth
+              >
+                <DialogTitle>google.com</DialogTitle>
+                <DialogContent>
+                  <Typography
+                    onClick={handleCopy}
+                    sx={{
+                      cursor: "pointer",
+                      userSelect: "none",
+                      color: "primary.main",
+                      mt: 1,
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    142.250.190.14/24
+                  </Typography>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseDialog}>X</Button>
+                </DialogActions>
+              </Dialog>
+
+              <Snackbar
+                open={copied}
+                autoHideDuration={2000}
+                onClose={handleCloseSnackbar}
+                message="Copied to clipboard"
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              />
+            </>
+          </CardContent>
+        </Card>
+      </Box>
+    );
+  }
 };
 
 export default NetworkTools;

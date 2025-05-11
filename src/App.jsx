@@ -74,6 +74,7 @@ function SecondaryView({ onBack }) {
     py: { xs: 1, sm: 1 }, // padding vertical ajustable
     minHeight: "100vh",   // ocupa toda la altura
     boxSizing: "border-box",
+    pb:0
   }}
 >
  
