@@ -70,11 +70,9 @@ function SecondaryView({ onBack }) {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    px: { xs: 2, sm: 3 }, // padding horizontal ajustable
-    py: { xs: 1, sm: 1 }, // padding vertical ajustable
     minHeight: "100vh",   // ocupa toda la altura
     boxSizing: "border-box",
-    pb:0
+    padding: "0px"
   }}
 >
  

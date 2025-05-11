@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
-  CardHeader,
   Button,
   TextField,
   CircularProgress,
@@ -213,7 +212,6 @@ result
               justifyContent: "space-between",
               alignItems: "center",
               mb: 2,
-        
             }}
           >
             {/* Flecha a la izquierda */}
@@ -227,6 +225,8 @@ result
               }}
             />
 
+            <Typography sx={{ mt: 2 , fontWeight: "bold" }}>CALCULATE</Typography>
+
             {/* Bombilla a la derecha */}
             <LightbulbIcon
               onClick={handleOpenDialog}
@@ -239,17 +239,10 @@ result
             />
           </Box>
 
-          <CardHeader
-            title="Network Calculators"
-            sx={{
-              textAlign: "center",
-              fontSize: isMobile ? 14 : 18,
-              padding: "0px",
-            }}
-          />
-
           <CardContent
             sx={{
+              pt: 0,
+
               "&.MuiCardContent-root": {
                 pb: 2,
               },
@@ -261,10 +254,12 @@ result
               centered
               textColor="primary"
               indicatorColor="primary"
-              sx={{ mb: 0.5 }}
+              sx={{
+                mb: 0.5,
+              }}
             >
-              <Tab label="Subnet" />
-              <Tab label="CIDR" />
+              <Tab label="Subnet.py" />
+              <Tab label="CIDR.py" />
             </Tabs>
 
             <TextField
@@ -328,7 +323,7 @@ result
               variant="contained"
               onClick={runCode}
               disabled={!pyodide || !isValid} // Deshabilitar el botón si la IP/CIDR es inválido
-              sx={{ mt: 2, width: "100%", mb:1.5 }}
+              sx={{ mt: 2, width: "100%", mb: 1.5 }}
             >
               Run Code
             </Button>
@@ -337,7 +332,7 @@ result
               <Box
                 component="pre"
                 sx={{
-                  m:0,
+                  m: 0,
                   color: "black",
                   whiteSpace: "pre-wrap",
                   fontSize: isMobile ? "0.8rem" : "1rem",
