@@ -16,10 +16,13 @@ import {
   DialogActions,
   Snackbar,
   Typography,
+  Backdrop,
 } from "@mui/material";
 
 import React from "react";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
+import ReplyIcon from "@mui/icons-material/Reply";
+
 import { useTheme } from "@mui/material/styles";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -38,7 +41,7 @@ const isValidCIDR = (cidr) => {
   return regex.test(cidr);
 };
 
-const NetworkTools = () => {
+const NetworkTools = ({ comebackFx }) => {
   const [output, setOutput] = useState("");
   const [pyodide, setPyodide] = useState(null);
   const [input, setInput] = useState("");
@@ -53,6 +56,8 @@ const NetworkTools = () => {
   const handleCloseDialog = () => setOpenDialog(false);
   const [copied, setCopied] = React.useState(false);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const handleCopy = () => {
     navigator.clipboard
       .writeText("142.250.190.14/24")
@@ -64,28 +69,49 @@ const NetworkTools = () => {
 
   useEffect(() => {
     const loadPyodide = async () => {
-      const pyodidePkg = await window.loadPyodide({
-        indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/",
-      });
-      setPyodide(pyodidePkg);
+      try {
+        // Check if loadPyodide is available in window
+        if (!window.loadPyodide) {
+          const script = document.createElement("script");
+          script.src =
+            "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js";
+          script.async = true; // Load script asynchronously
+          script.onload = async () => {
+            try {
+              const pyodidePkg = await window.loadPyodide({
+                indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/",
+              });
+              setPyodide(pyodidePkg);
+              setIsLoading(false); // Carga completa, setea a false
+            } catch (error) {
+              console.error("Failed to load Pyodide:", error);
+              setIsLoading(false); // Si hay un error, también setea a false
+            }
+          };
+          script.onerror = () => {
+            console.error("Failed to load Pyodide script.");
+            setIsLoading(false); // En caso de error de carga
+          };
+          document.body.appendChild(script);
+        } else {
+          const pyodidePkg = await window.loadPyodide({
+            indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/",
+          });
+          setPyodide(pyodidePkg);
+          setIsLoading(false); // Carga completa, setea a false
+        }
+      } catch (error) {
+        console.error("Error loading Pyodide:", error);
+        setIsLoading(false); // Si hay un error en la carga, cambia a false
+      }
     };
 
-    if (!window.loadPyodide) {
-      const script = document.createElement("script");
-      script.src = "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js";
-      script.onload = loadPyodide;
-      document.body.appendChild(script);
-    } else {
-      loadPyodide();
-    }
+    loadPyodide();
   }, []);
 
   const runCode = async () => {
-
-
     if (pyodide && isValid && input.trim() !== "") {
       try {
-
         let dynamicCode = "";
 
         if (tabIndex === 0) {
@@ -140,6 +166,26 @@ result
     setOutput(""); // Limpiar el resultado
   };
 
+  if (isLoading) {
+    return (
+      <Backdrop
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backgroundColor: "rgba(0, 0, 0, 1)", // Fondo oscuro semi-transparente
+          display: isLoading ? "flex" : "none", // Mostrar solo si está cargando
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" size={60} />
+      </Backdrop>
+    );
+  }
+
+  else{
+
   return (
     <Box
       sx={{
@@ -159,10 +205,26 @@ result
           p: isMobile ? 1 : 2,
         }}
       >
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          {/* Flecha a la izquierda */}
+          <ReplyIcon
+            onClick={comebackFx}
+            sx={{
+              color: "#1976d2",
+              ml: 1,
+              fontSize: 40,
+              cursor: "pointer",
+            }}
+          />
 
-       
-
-        <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
+          {/* Bombilla a la derecha */}
           <LightbulbIcon
             onClick={handleOpenDialog}
             sx={{
@@ -174,12 +236,14 @@ result
           />
         </Box>
 
-         
         <CardHeader
           title="Network Calculators"
-          sx={{ textAlign: "center", fontSize: isMobile ? 14 : 18}}
+          sx={{
+            textAlign: "center",
+            fontSize: isMobile ? 14 : 18,
+            padding: "0px",
+          }}
         />
-      
 
         <CardContent>
           <Tabs
@@ -257,7 +321,7 @@ result
             disabled={!pyodide || !isValid} // Deshabilitar el botón si la IP/CIDR es inválido
             sx={{ mt: 2, width: "100%" }}
           >
-            {pyodide ? "Run Code" : <CircularProgress size={24} />}
+            Run Code
           </Button>
 
           {output && (
@@ -313,6 +377,7 @@ result
       </Card>
     </Box>
   );
+};
 };
 
 export default NetworkTools;

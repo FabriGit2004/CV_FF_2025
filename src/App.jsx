@@ -13,8 +13,6 @@ import {
 
 import React from 'react';
 import HubIcon from "@mui/icons-material/Share";
-import HomeIcon from "@mui/icons-material/Home";
-
 import Header from "./components/Header";
 import Experience from "./components/Experience";
 import Education from "./components/Education";
@@ -65,26 +63,26 @@ function SecondaryView({ onBack }) {
 
 
   return (
-    <Container
-      maxWidth="sm"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <HomeIcon
-          onClick={onBack}
-          sx={{ color: "white", fontSize: 50, cursor: "pointer", mt: 2, mb : 4 }}
-        />
-      </Box>
+  <Container
+  maxWidth="sm"
+  sx={{
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    px: { xs: 2, sm: 3 }, // padding horizontal ajustable
+    py: { xs: 1, sm: 1 }, // padding vertical ajustable
+    minHeight: "100vh",   // ocupa toda la altura
+    boxSizing: "border-box",
+  }}
+>
+ 
 
-      <NetworkTools />
+  <Box sx={{ width: "100%" }}>
+    <NetworkTools comebackFx={onBack} />
+  </Box>
+</Container>
 
-
-      
-    </Container>
   );
 }
 
