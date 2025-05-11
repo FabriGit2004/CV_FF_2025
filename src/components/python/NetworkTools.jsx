@@ -10,22 +10,31 @@ import {
   useMediaQuery,
   Tabs,
   Tab,
-  
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Snackbar,
+  Typography,
 } from "@mui/material";
 
+import React from "react";
+import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import { useTheme } from "@mui/material/styles";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 // Función para validar la IP
 const isValidIP = (ip) => {
-  const regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\/(3[0-2]|[12]?[0-9]))?$/;
+  const regex =
+    /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\/(3[0-2]|[12]?[0-9]))?$/;
   return regex.test(ip);
 };
 
 // Función para validar el CIDR
 const isValidCIDR = (cidr) => {
-  const regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\/(3[0-2]|[12]?[0-9]))$/;
+  const regex =
+    /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\/(3[0-2]|[12]?[0-9]))$/;
   return regex.test(cidr);
 };
 
@@ -37,6 +46,21 @@ const NetworkTools = () => {
   const [tabIndex, setTabIndex] = useState(0); // Control de la pestaña seleccionada
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDialog = () => setOpenDialog(true);
+  const handleCloseDialog = () => setOpenDialog(false);
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText("142.250.190.14/24")
+      .then(() => setCopied(true))
+      .catch((err) => console.error("Copy failed", err));
+  };
+
+  const handleCloseSnackbar = () => setCopied(false);
 
   useEffect(() => {
     const loadPyodide = async () => {
@@ -57,11 +81,15 @@ const NetworkTools = () => {
   }, []);
 
   const runCode = async () => {
-    if (pyodide && isValid) {
+
+
+    if (pyodide && isValid && input.trim() !== "") {
       try {
+
         let dynamicCode = "";
-        
-        if (tabIndex === 0) { // Si estamos en la pestaña de Subnet
+
+        if (tabIndex === 0) {
+          // Si estamos en la pestaña de Subnet
           dynamicCode = `
 import ipaddress
 
@@ -72,7 +100,8 @@ def subnet_info(ip_with_mask):
 result = subnet_info("${input.trim()}")
 result
           `;
-        } else if (tabIndex === 1) { // Si estamos en la pestaña de CIDR
+        } else if (tabIndex === 1) {
+          // Si estamos en la pestaña de CIDR
           dynamicCode = `
 import ipaddress
 
@@ -118,7 +147,6 @@ result
         justifyContent: "center",
         alignItems: "center",
         minHeight: "0vh",
-        mt: 3,
         p: 2,
       }}
     >
@@ -131,11 +159,28 @@ result
           p: isMobile ? 1 : 2,
         }}
       >
+
+       
+
+        <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
+          <LightbulbIcon
+            onClick={handleOpenDialog}
+            sx={{
+              color: "#fbc02d",
+              mr: 1,
+              fontSize: 40,
+              cursor: "pointer",
+            }}
+          />
+        </Box>
+
+         
         <CardHeader
           title="Network Calculators"
-          sx={{ textAlign: "center", fontSize: isMobile ? 14 : 18 }}
+          sx={{ textAlign: "center", fontSize: isMobile ? 14 : 18}}
         />
-        
+      
+
         <CardContent>
           <Tabs
             value={tabIndex}
@@ -143,14 +188,22 @@ result
             centered
             textColor="primary"
             indicatorColor="primary"
-            sx={{mb : 2}}
+            sx={{ mb: 2 }}
           >
             <Tab label="Subnet" />
             <Tab label="CIDR" />
           </Tabs>
 
           <TextField
-            label={tabIndex === 0 ? (!isValid ? "Invalid IP address or subnet" : "Enter IP/Subnet ") : (!isValid ? "Invalid CIDR" : "Enter CIDR")}
+            label={
+              tabIndex === 0
+                ? !isValid
+                  ? "Invalid IP address or subnet"
+                  : "Enter IP/Subnet "
+                : !isValid
+                ? "Invalid CIDR"
+                : "Enter CIDR"
+            }
             value={input}
             onChange={handleInputChange}
             fullWidth
@@ -206,13 +259,13 @@ result
           >
             {pyodide ? "Run Code" : <CircularProgress size={24} />}
           </Button>
-          
+
           {output && (
             <Box
               component="pre"
               sx={{
                 mt: 2,
-                color: "limegreen",
+                color: "black",
                 whiteSpace: "pre-wrap",
                 fontSize: isMobile ? "0.8rem" : "1rem",
               }}
@@ -220,6 +273,42 @@ result
               Output: {output}
             </Box>
           )}
+
+          <>
+            <Dialog
+              open={openDialog}
+              onClose={handleCloseDialog}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle>google.com</DialogTitle>
+              <DialogContent>
+                <Typography
+                  onClick={handleCopy}
+                  sx={{
+                    cursor: "pointer",
+                    userSelect: "none",
+                    color: "primary.main",
+                    mt: 1,
+                    wordBreak: "break-word",
+                  }}
+                >
+                  142.250.190.14/24
+                </Typography>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseDialog}>X</Button>
+              </DialogActions>
+            </Dialog>
+
+            <Snackbar
+              open={copied}
+              autoHideDuration={2000}
+              onClose={handleCloseSnackbar}
+              message="Copied to clipboard"
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            />
+          </>
         </CardContent>
       </Card>
     </Box>

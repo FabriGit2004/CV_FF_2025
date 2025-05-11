@@ -6,14 +6,14 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
   Stack,
   Typography,
+
 } from "@mui/material";
 
+import React from 'react';
 import HubIcon from "@mui/icons-material/Share";
 import HomeIcon from "@mui/icons-material/Home";
-import LightbulbIcon from "@mui/icons-material/Lightbulb";
 
 import Header from "./components/Header";
 import Experience from "./components/Experience";
@@ -62,10 +62,7 @@ function LanguageSelector({ onSelect }) {
 }
 
 function SecondaryView({ onBack }) {
-  const [openDialog, setOpenDialog] = useState(false);
 
-  const handleOpenDialog = () => setOpenDialog(true);
-  const handleCloseDialog = () => setOpenDialog(false);
 
   return (
     <Container
@@ -79,34 +76,14 @@ function SecondaryView({ onBack }) {
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <HomeIcon
           onClick={onBack}
-          sx={{ color: "white", fontSize: 70, cursor: "pointer", mt: 3 }}
+          sx={{ color: "white", fontSize: 50, cursor: "pointer", mt: 2, mb : 4 }}
         />
       </Box>
 
       <NetworkTools />
 
-      <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
-        <LightbulbIcon
-          onClick={handleOpenDialog}
-          sx={{
-            color: "#fbc02d",
-            mt: 1,
-            mr: 5,
-            fontSize: 40,
-            cursor: "pointer",
-          }}
-        />
-      </Box>
 
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>google.com</DialogTitle>
-        <DialogContent>
-          <Typography>142.250.190.14/24</Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>X</Button>
-        </DialogActions>
-      </Dialog>
+      
     </Container>
   );
 }
