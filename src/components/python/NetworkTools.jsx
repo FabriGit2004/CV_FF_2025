@@ -193,7 +193,6 @@ result
           minHeight: "0vh",
           p: 2,
           mb: isIphone ? 6 : 0,
-          touchAction: 'none'
         }}
       >
         <Card

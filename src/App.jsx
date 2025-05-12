@@ -72,7 +72,8 @@ function SecondaryView({ onBack }) {
     alignItems: "center",
     minHeight: "100vh",   // ocupa toda la altura
     boxSizing: "border-box",
-    padding: "0px"
+    padding: "0px",
+    touchAction: 'none'
   }}
 >
  
