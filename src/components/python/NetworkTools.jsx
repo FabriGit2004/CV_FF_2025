@@ -18,6 +18,7 @@ import {
   Backdrop,
 } from "@mui/material";
 
+
 import React from "react";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ReplyIcon from "@mui/icons-material/Reply";
@@ -25,6 +26,8 @@ import ReplyIcon from "@mui/icons-material/Reply";
 import { useTheme } from "@mui/material/styles";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+
+
 
 // Función para validar la IP
 const isValidIP = (ip) => {
@@ -165,6 +168,7 @@ result`;
     setOutput(""); // Limpiar el resultado
   };
 
+
   if (isLoading) {
     return (
       <Backdrop
@@ -288,25 +292,21 @@ result`;
               language="python"
               style={materialDark}
               customStyle={{
-                height: "200px",
+                height: "180px",
                 marginTop: "20px",
                 fontSize: isMobile ? "0.75rem" : "1rem",
                 overflowX: "auto",
               }}
             >
               {tabIndex === 0
-                ? `
-import ipaddress
-
+                ? `import ipaddress
 def subnet_info(ip_with_mask):
     net = ipaddress.ip_network(ip_with_mask, strict=False)
     return f"Network: {net.network_address}\\nBroadcast: {net.broadcast_address}\\nHosts: {net.num_addresses - 2}"
 
 result = subnet_info("${input.trim()}")
 print(result)`
-                : `
-import ipaddress
-
+                : `import ipaddress
 def cidr_info(cidr):
     net = ipaddress.IPv4Network(cidr, strict=False)
     network_address = net.network_address
