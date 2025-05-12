@@ -192,7 +192,7 @@ result
           alignItems: "center",
           minHeight: "0vh",
           p: 2,
-          mb: isIphone ? 10 : 0,
+          mb: isIphone ? 6 : 0,
         }}
       >
         <Card
@@ -225,7 +225,9 @@ result
               }}
             />
 
-            <Typography sx={{ mt: 2 , fontWeight: "bold" }}>CALCULATE</Typography>
+            <Typography sx={{ mt: 2, fontWeight: "bold" }}>
+              CALCULATE
+            </Typography>
 
             {/* Bombilla a la derecha */}
             <LightbulbIcon
