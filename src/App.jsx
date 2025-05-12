@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState,  } from "react";
 import {
   Box,
   Container,
@@ -8,8 +8,7 @@ import {
   DialogContent,
   Stack,
   Typography,
-  useMediaQuery,
-  useTheme,
+
 } from "@mui/material";
 
 import React from "react";
@@ -21,7 +20,7 @@ import Contact from "./components/Contact";
 import Certificates from "./components/Certificates";
 
 import { contentEs, contentEn } from "./content";
-import ScreenRotationIcon from "@mui/icons-material/ScreenRotation";
+
 import NetworkTools from "./components/python/NetworkTools";
 
 
@@ -63,14 +62,14 @@ function LanguageSelector({ onSelect }) {
 
 function SecondaryView({ onBack }) {
   return (
-    <Container
-      maxWidth="sm"
+    <Box
+      maxWidth="100%"
       sx={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh", // ocupa toda la altura
+        minHeight: "100vh", 
         boxSizing: "border-box",
         padding: "0px",
         touchAction: "none",
@@ -79,35 +78,12 @@ function SecondaryView({ onBack }) {
       <Box sx={{ width: "100%" }}>
         <NetworkTools comebackFx={onBack} />
       </Box>
-    </Container>
+    </Box>
   );
 }
 
 function App() {
-  const [isLandscape, setIsLandscape] = useState(false);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const handleOrientationChange = () => {
-    const isNowLandscape = window.matchMedia(
-      "(orientation: landscape)"
-    ).matches;
-    setIsLandscape(isNowLandscape);
-  };
-
-  useEffect(() => {
-    handleOrientationChange(); // Initial check
-    window.addEventListener("orientationchange", handleOrientationChange);
-    window.addEventListener("resize", handleOrientationChange);
-
-    return () => {
-      window.removeEventListener("orientationchange", handleOrientationChange);
-      window.removeEventListener("resize", handleOrientationChange);
-    };
-  }, []);
-
-
-
+ 
   const [lang, setLang] = useState(null); // null => no seleccionado aún
   const [secondaryView, setSecondaryView] = useState(false); // para cambiar entre vistas
   const pad = 1.5;
@@ -122,25 +98,7 @@ function App() {
     return <SecondaryView onBack={() => setSecondaryView(false)} />;
   }
 
-  if (isMobile && isLandscape) {
-    return (
-      <Box
-        sx={{
-          width: "100",
-          height: "100vh",
-          backgroundColor: "black",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "white",
-          textAlign: "center",
-        }}
-      >
-        <ScreenRotationIcon sx={{ fontSize: 80, mb: 2 }} />
-      </Box>
-    );
-  }
+
 
   return (
     <Container maxWidth="md" sx={{ "& > *": { mt: pad, mb: pad } }}>

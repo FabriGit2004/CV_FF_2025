@@ -16,14 +16,13 @@ import {
   Snackbar,
   Typography,
   Backdrop,
+  useTheme,
 } from "@mui/material";
 
-
+import ScreenRotationIcon from "@mui/icons-material/ScreenRotation";
 import React from "react";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ReplyIcon from "@mui/icons-material/Reply";
-
-import { useTheme } from "@mui/material/styles";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -50,7 +49,7 @@ const NetworkTools = ({ comebackFx }) => {
   const [isValid, setIsValid] = useState(true);
   const [tabIndex, setTabIndex] = useState(0); // Control de la pestaña seleccionada
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = !(useMediaQuery(theme.breakpoints.up("sm")));
 
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -167,6 +166,50 @@ result`;
     setInput(""); // Limpiar la entrada cuando se cambie la pestaña
     setOutput(""); // Limpiar el resultado
   };
+
+   const [isLandscape, setIsLandscape] = useState(false);
+
+  
+    const handleOrientationChange = () => {
+      const isNowLandscape = window.matchMedia(
+        "(orientation: landscape)"
+      ).matches;
+      setIsLandscape(isNowLandscape);
+    };
+  
+    useEffect(() => {
+      handleOrientationChange(); // Initial check
+      window.addEventListener("orientationchange", handleOrientationChange);
+      window.addEventListener("resize", handleOrientationChange);
+  
+      return () => {
+        window.removeEventListener("orientationchange", handleOrientationChange);
+        window.removeEventListener("resize", handleOrientationChange);
+      };
+    }, []);
+
+
+
+
+    if (isMobile && isLandscape) {
+      return (
+        <Box
+          sx={{
+            width: "100%",
+            height: "100vh",
+            backgroundColor: "black",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+            textAlign: "center",
+          }}
+        >
+          <ScreenRotationIcon sx={{ fontSize: 50, mb: 2 }} />
+        </Box>
+      );
+    }
 
 
   if (isLoading) {
