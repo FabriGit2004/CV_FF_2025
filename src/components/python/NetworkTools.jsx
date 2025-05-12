@@ -125,8 +125,7 @@ def subnet_info(ip_with_mask):
     return f"Network: {net.network_address}\\nBroadcast: {net.broadcast_address}\\nHosts: {net.num_addresses - 2}"
 
 result = subnet_info("${input.trim()}")
-result
-          `;
+result`;
         } else if (tabIndex === 1) {
           // Si estamos en la pestaña de CIDR
           dynamicCode = `
@@ -142,8 +141,7 @@ def cidr_info(cidr):
     return f"Network Address: {network_address}\\nBroadcast Address: {broadcast_address}\\nFirst Host: {first_host}\\nLast Host: {last_host}\\nTotal IPs: {total_ips}"
 
 result = cidr_info("${input.trim()}")
-result
-          `;
+result`;
         }
 
         const result = await pyodide.runPythonAsync(dynamicCode);
@@ -199,6 +197,9 @@ result
           sx={{
             width: "100%",
             maxWidth: 800,
+            height:"635px",
+            display: "flex",
+            flexDirection: "column",
             borderRadius: 3,
             boxShadow: 6,
             p: isMobile ? 1 : 2,
@@ -302,8 +303,7 @@ def subnet_info(ip_with_mask):
     return f"Network: {net.network_address}\\nBroadcast: {net.broadcast_address}\\nHosts: {net.num_addresses - 2}"
 
 result = subnet_info("${input.trim()}")
-result
-              `
+print(result)`
                 : `
 import ipaddress
 
@@ -317,30 +317,32 @@ def cidr_info(cidr):
     return f"Network Address: {network_address}\\nBroadcast Address: {broadcast_address}\\nFirst Host: {first_host}\\nLast Host: {last_host}\\nTotal IPs: {total_ips}"
 
 result = cidr_info("${input.trim()}")
-result
-              `}
+print(result)`}
             </SyntaxHighlighter>
 
             <Button
               variant="contained"
               onClick={runCode}
               disabled={!pyodide || !isValid} // Deshabilitar el botón si la IP/CIDR es inválido
-              sx={{ mt: 2, width: "100%", mb: 1.5 }}
+              sx={{ mt: 0, width: "100%", mb: 0 }}
             >
               Run Code
             </Button>
 
-            {output && (
+            {true && (
               <Box
                 component="pre"
                 sx={{
-                  m: 0,
-                  color: "black",
+                  height: "100px",
+                  color: "rgb(165, 232, 68)",
+                  backgroundColor: "rgb(47, 47, 47)",
+                  p:1,
                   whiteSpace: "pre-wrap",
                   fontSize: isMobile ? "0.8rem" : "1rem",
+               
                 }}
               >
-                {output}
+                {output ? output : "$>"}
               </Box>
             )}
 
