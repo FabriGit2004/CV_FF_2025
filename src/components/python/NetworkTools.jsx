@@ -49,7 +49,7 @@ const NetworkTools = ({ comebackFx }) => {
   const [isValid, setIsValid] = useState(true);
   const [tabIndex, setTabIndex] = useState(0); // Control de la pestaña seleccionada
   const theme = useTheme();
-  const isMobile = (useMediaQuery(theme.breakpoints.down("md")));
+  const isMobile = (useMediaQuery(theme.breakpoints.down("sm")));
 
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -204,6 +204,8 @@ result`;
             alignItems: "center",
             color: "white",
             textAlign: "center",
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+
           }}
         >
           <ScreenRotationIcon sx={{ fontSize: 50, mb: 2 }} />

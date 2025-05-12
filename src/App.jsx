@@ -72,7 +72,6 @@ function SecondaryView({ onBack }) {
         minHeight: "100vh", 
         boxSizing: "border-box",
         padding: "0px",
-        touchAction: "none",
       }}
     >
       <Box sx={{ width: "100%" }}>
