@@ -6,10 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: rgb(91, 99, 121); 
-  overscroll-behavior: none;
-  touch-action: none;
-  height: 100%;
-
 }
 
 
