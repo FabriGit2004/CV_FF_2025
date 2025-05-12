@@ -49,7 +49,7 @@ const NetworkTools = ({ comebackFx }) => {
   const [isValid, setIsValid] = useState(true);
   const [tabIndex, setTabIndex] = useState(0); // Control de la pestaña seleccionada
   const theme = useTheme();
-  const isMobile = !(useMediaQuery(theme.breakpoints.up("sm")));
+  const isMobile = (useMediaQuery(theme.breakpoints.down("md")));
 
   const [openDialog, setOpenDialog] = useState(false);
 
