@@ -67,9 +67,6 @@ const NetworkTools = ({ comebackFx }) => {
   };
 
   const handleCloseSnackbar = () => setCopied(false);
-
-  const isIphone = /iPhone/.test(navigator.userAgent);
-
   useEffect(() => {
     const loadPyodide = async () => {
       try {
@@ -238,8 +235,7 @@ result`;
           justifyContent: "center",
           alignItems: "center",
           minHeight: "0vh",
-          p: 2,
-          mb: isIphone ? 6 : 0,
+          p: 2
         }}
       >
         <Card
