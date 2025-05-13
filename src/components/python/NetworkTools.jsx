@@ -67,6 +67,12 @@ const NetworkTools = ({ comebackFx }) => {
   };
 
   const handleCloseSnackbar = () => setCopied(false);
+
+   useEffect(() => {
+    window.scrollTo(0, 0); // Scroll al tope al montarse el componente
+  }, []); // [] asegura que solo se ejecute una vez al montar
+
+
   useEffect(() => {
     const loadPyodide = async () => {
       try {
